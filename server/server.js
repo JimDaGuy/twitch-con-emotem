@@ -61,7 +61,7 @@ function setInitialVariables(user) {
   }
 };
 
-// triggerHypeMoment("#gamesdonequick");
+triggerHypeMoment("#gamesdonequick");
 
 function triggerHypeMoment(user) {
   const userWithoutHash = user.slice(1);
@@ -131,9 +131,12 @@ function triggerHypeMoment(user) {
           console.dir(emoteList)
 
           // Send hype event to firebase
-          firebase.database().ref(`${channelID}/Payload`).set({
-            EmotesIdList: emoteList,
-            TimeStamp: new Date().toUTCString()
+          firebase.database().ref(`${channelID}`).update({
+            Payload: {
+              EmotesIdList: emoteList,
+              TimeStamp: new Date().toUTCString()
+            },
+            hasNewPayload: true
           });
         })
         .catch((error) => {
